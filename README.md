@@ -12,3 +12,4 @@ and add my note
 ## Technologies
 
 - React
+- react-bootstrap
