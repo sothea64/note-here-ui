@@ -5,8 +5,6 @@ import Login from "./screens/login/Login";
 function App() {
   return (
     <>
-      <header className="App-header">
-      </header>
       <Login></Login>
     </>
   );
