@@ -15,7 +15,7 @@ function Login() {
   return (
     <>
       <div className="container d-flex">
-        <Row className="LoginMain mx-auto my-5 p-0 justify-content-center border border-transparent rounded">
+        <Row className="LoginMain mx-auto my-5 p-0 justify-content-center">
           <Row>
             <h1>Note Here</h1>
             <hr className="Seperator" />
@@ -35,20 +35,21 @@ function Login() {
                   required
                 />
               </Form.Group>
-              <Row className="align-middle">
-                <Col>
-                  <p className="sm">Don't have account yet? <a href="#">Sign up here!</a></p>
-                </Col>
-                <Col lg={1} sm={12}>
-                  <Button
-                    className="float-end"
-                    variant="primary"
-                    type="submit"
-                    size="md"
-                  >
-                    Login
-                  </Button>
-                </Col>
+              <Row className="mx-auto justify-content-center d-flex">
+                <div className="col-lg-10 col-md-10 col-sm-12 p-0">
+                  <p className="">
+                    Don't have account yet?{" "}
+                    <span role={"button"} className="link-primary">
+                      Sign up here!
+                    </span>
+                  </p>
+                </div>
+                <Button
+                  className="btn btn-primary btn-sm btn-block col-lg-2 col-md-2 col-sm-12"
+                  type="submit"
+                >
+                  Login
+                </Button>
               </Row>
             </Form>
           </Row>

@@ -1,5 +1,7 @@
 .LoginMain{
     background-color: skyblue;
+    border-color: transparent;
+    border-radius: 10px;
 }
 
 .LoginMain .Seperator{
