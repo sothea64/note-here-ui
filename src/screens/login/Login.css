@@ -1,9 +1,6 @@
 .LoginMain{
     background-color: skyblue;
-    border-color: transparent;
+    border: 1px solid;
+    border-color: whitesmoke;
     border-radius: 10px;
-}
-
-.LoginMain .Seperator{
-    border: 1px solid white;
 }

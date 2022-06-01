@@ -1,8 +1,9 @@
 import "./Login.css";
 import { useState } from "react";
-import { Form, Row, Feedback } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import { Button, Alert } from "react-bootstrap";
-import RequireAstrix from "../../../src/components/require-astrix/RequireAstrix.js";
+import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
+import Seperator from "../../components/seperator/Seperator";
 
 function Login() {
   const [username, setusername] = useState("");
@@ -15,6 +16,9 @@ function Login() {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    }
+    setValidForm(true);
+    if (username === "" || password === ""){
       return;
     }
     event.preventDefault();
@@ -27,13 +31,13 @@ function Login() {
 
   return (
     <>
-      <section style={{ height: "100vh", backgroundColor:"lightblue" }}>
+      <section style={{ height: "100vh", backgroundColor: "lightblue" }}>
         <div className="container py-5 h-100">
           <div className="row justify-content-center align-items-center h-100">
             <div className="col shadow-sm p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
               <Row>
                 <h1>Note Here</h1>
-                <hr className="Seperator" />
+                <Seperator/>
               </Row>
               <Row className="mb-3">
                 {failedLogin && (
@@ -45,7 +49,7 @@ function Login() {
                     Login failed, wrong username or password!
                   </Alert>
                 )}
-                <Form onSubmit={OnLogin}>
+                <Form noValidate onSubmit={OnLogin}>
                   <Form.Group className="mb-1" controlId="validateUsername">
                     <Form.Label>
                       Username <RequireAstrix />
@@ -54,9 +58,12 @@ function Login() {
                       required
                       type="text"
                       placeholder=""
-                      size="sm"
                       onChange={(e) => setusername(e.target.value)}
+                      isInvalid = {validForm && username === "" ? true : false}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please input username!
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-2">
                     <Form.Label>
@@ -65,10 +72,13 @@ function Login() {
                     <Form.Control
                       type="password"
                       placeholder=""
-                      size="sm"
                       required
                       onChange={(e) => setpassword(e.target.value)}
+                      isInvalid = {validForm && password === "" ? true : false}
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please input password!
+                    </Form.Control.Feedback>
                   </Form.Group>
                   <Row className="mx-auto justify-content-center d-flex">
                     <div className="col-lg-10 col-md-12 col-sm-12 p-0">
