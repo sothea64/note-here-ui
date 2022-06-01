@@ -1,15 +1,16 @@
 # NoteHere
 
-This project was created as a case study and learning experience.
-
-This project was bootstrap by [Create React App]
+This project was created as a case study and learning experience for me to study about
+web development as well as web front-end design.
 
 ## About
 
-This project has one goal is be a platform where I can create ToDo list
-and add my note
+Note Here is a web application that will assist you as note taking platform and
+create to-do list.
 
 ## Technologies
 
 - React
 - react-bootstrap
+
+#This project was bootstrap by [Create React App]
