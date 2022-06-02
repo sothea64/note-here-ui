@@ -1,9 +1,10 @@
 import "./Login.css";
 import { useState } from "react";
-import { Form, Row, Spinner } from "react-bootstrap";
-import { Button, Alert } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
 import Seperator from "../../components/seperator/Seperator";
+import LoadingButton from "../../components/loading-button/LoadingButton";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -20,6 +21,7 @@ function Login() {
     }
 
     setValidForm(true);
+
     if (username === "" || password === "") {
       return;
     }
@@ -28,7 +30,7 @@ function Login() {
     event.preventDefault();
 
     await setTimeout(() => {
-      if (username == "admin" && password == "admin") {
+      if (username === "admin" && password === "admin") {
         setFailedLogin(false);
       } else {
         setFailedLogin(true);
@@ -39,8 +41,8 @@ function Login() {
 
   return (
     <>
-      <section title="Note Here" style={{ height: "100vh", backgroundColor: "lightblue" }}>
-        <div title="Note Here" className="container py-5 h-100">
+      <section style={{ height: "100vh", backgroundColor: "lightblue" }}>
+        <div className="container py-5 h-100">
           <div className="row justify-content-center align-items-center h-100">
             <div className="col shadow-sm p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
               <Row>
@@ -59,7 +61,7 @@ function Login() {
                   </Alert>
                 )}
                 <Form noValidate onSubmit={OnLogin}>
-                  <Form.Group className="mb-1" controlId="validateUsername">
+                  <Form.Group className="mb-1">
                     <Form.Label>
                       Username <RequireAstrix />
                     </Form.Label>
@@ -98,22 +100,13 @@ function Login() {
                         </a>
                       </p>
                     </div>
-                    <Button
+                    <LoadingButton
                       className="btn btn-primary btn-sm btn-block col-lg-3 col-md-12 col-sm-12"
-                      type="submit"
                       disabled={loginLoading}
-                    >
-                      {/* Show loading when click button login */}
-                      {loginLoading && (
-                        <Spinner
-                          className="mr-1"
-                          as="span"
-                          animation="border"
-                          size="sm"
-                        />
-                      )}
-                      Login
-                    </Button>
+                      type="submit"
+                      text="Login"
+                      showLoading={loginLoading}
+                    />
                   </Row>
                 </Form>
               </Row>
