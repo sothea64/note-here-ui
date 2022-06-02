@@ -5,9 +5,7 @@ import Login from "./screens/login/Login";
 function App() {
   return (
     <>
-      <section style={{ height: "100vh" }}>
-        <Login></Login>
-      </section>
+      <Login></Login>
     </>
   );
 }
