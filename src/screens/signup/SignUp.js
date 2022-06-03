@@ -1,20 +1,44 @@
-import "./Login.css";
-import { useState } from "react";
+import "./SignUp.css";
+import { useRef, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
 import Seperator from "../../components/seperator/Seperator";
 import LoadingButton from "../../components/loading-button/LoadingButton";
-import { Link } from "react-router-dom";
 
-function Login() {
+function Signup() {
+  const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
-  const [failedLogin, setFailedLogin] = useState(false);
+  const [failedSignup, setFailedSignup] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
+  const NotMatchPassword = () => {
+    if (confirmPassword === "" || password === "") {
+      return true;
+    }
+    if (confirmPassword != password) {
+      return true;
+    }
+  };
+
+  const InValid = () => {
+    if (
+      fullname === "" ||
+      username === "" ||
+      password === "" ||
+      confirmPassword === "" ||
+      NotMatchPassword()
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const OnLogin = async (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -23,18 +47,17 @@ function Login() {
 
     setValidForm(true);
 
-    if (username === "" || password === "") {
+    if (InValid()) {
       return;
     }
 
     setLoginLoading(true);
-    event.preventDefault();
 
     await setTimeout(() => {
       if (username === "admin" && password === "admin") {
-        setFailedLogin(false);
+        setFailedSignup(false);
       } else {
-        setFailedLogin(true);
+        setFailedSignup(true);
       }
       setLoginLoading(false);
     }, 3000);
@@ -50,18 +73,38 @@ function Login() {
                 <h1>Note Here</h1>
                 <Seperator />
               </Row>
+              <Row className="mb-1">
+                <h3>Sign Up</h3>
+              </Row>
               <Row className="mb-3">
                 {/* Show failed login alert */}
-                {failedLogin && (
+                {failedSignup && (
                   <Alert
                     className="col-md-12 col-sm-12 col-lg-12"
                     key={"danger"}
                     variant={"danger"}
                   >
-                    Login failed, wrong username or password!
+                    Signup failed!
                   </Alert>
                 )}
                 <Form noValidate onSubmit={OnLogin}>
+                  {/* Full Name */}
+                  <Form.Group className="mb-1">
+                    <Form.Label>
+                      Full Name <RequireAstrix />
+                    </Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder=""
+                      onChange={(e) => setFullname(e.target.value)}
+                      isInvalid={validForm && fullname === "" ? true : false}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Fullname is required!
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  {/* Username */}
                   <Form.Group className="mb-1">
                     <Form.Label>
                       Username <RequireAstrix />
@@ -77,6 +120,7 @@ function Login() {
                       Username is required!
                     </Form.Control.Feedback>
                   </Form.Group>
+                  {/* Password */}
                   <Form.Group className="mb-2">
                     <Form.Label>
                       Password <RequireAstrix />
@@ -92,20 +136,38 @@ function Login() {
                       Password is required!
                     </Form.Control.Feedback>
                   </Form.Group>
+                  {/* Confirm Password */}
+                  <Form.Group className="mb-2">
+                    <Form.Label>
+                      Confirm Password <RequireAstrix />
+                    </Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder=""
+                      required
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      isInvalid={
+                        (confirmPassword === "" && password !== "") ||
+                        (confirmPassword !== "" && NotMatchPassword())
+                          ? true
+                          : false
+                      }
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {confirmPassword === "" && password !== "" && (
+                        <>Please confirm your password!</>
+                      )}
+                      {confirmPassword !== "" && NotMatchPassword() && (
+                        <>Confirm password not match!</>
+                      )}
+                    </Form.Control.Feedback>
+                  </Form.Group>
                   <Row className="mx-auto justify-content-center d-flex">
-                    <div className="col-lg-9 col-md-12 col-sm-12 p-0">
-                      <p className="">
-                        Don't have account yet?{" "}
-                        <Link to="/signup">
-                          Sign up here!
-                        </Link>
-                      </p>
-                    </div>
                     <LoadingButton
                       className="btn btn-primary btn-md btn-block col-lg-3 col-md-12 col-sm-12"
                       disabled={loginLoading}
                       type="submit"
-                      text="Login"
+                      text="Sign Up"
                       showLoading={loginLoading}
                     />
                   </Row>
@@ -119,4 +181,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
