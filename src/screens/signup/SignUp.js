@@ -5,15 +5,17 @@ import { Alert } from "react-bootstrap";
 import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
 import Seperator from "../../components/seperator/Seperator";
 import LoadingButton from "../../components/loading-button/LoadingButton";
+import { IsValidEmail } from "../../utilities/Validator";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [fullname, setFullname] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [password, setPassword] = useState("");
   const [failedSignup, setFailedSignup] = useState(false);
   const [validForm, setValidForm] = useState(false);
-  const [loginLoading, setLoginLoading] = useState(false);
+  const [signupLoading, setSignupLoading] = useState(false);
 
   const NotMatchPassword = () => {
     if (confirmPassword === "" || password === "") {
@@ -27,7 +29,7 @@ function Signup() {
   const InValid = () => {
     if (
       fullname === "" ||
-      username === "" ||
+      !IsValidEmail(email) ||
       password === "" ||
       confirmPassword === "" ||
       NotMatchPassword()
@@ -38,7 +40,6 @@ function Signup() {
   };
 
   const OnLogin = async (event) => {
-    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -46,29 +47,30 @@ function Signup() {
     }
 
     setValidForm(true);
+    event.preventDefault();
 
     if (InValid()) {
       return;
     }
 
-    setLoginLoading(true);
+    setSignupLoading(true);
 
     await setTimeout(() => {
-      if (username === "admin" && password === "admin") {
+      if (email === "admin" && password === "admin") {
         setFailedSignup(false);
       } else {
         setFailedSignup(true);
       }
-      setLoginLoading(false);
+      setSignupLoading(false);
     }, 3000);
   };
 
   return (
     <>
       <section style={{ height: "100vh", backgroundColor: "lightblue" }}>
-        <div className="container py-5 h-100">
+        <div className="container pt-5 h-100">
           <div className="row justify-content-center align-items-center h-100">
-            <div className="col shadow-sm p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
+            <div className="col shadow-sm pb-0 p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
               <Row>
                 <h1>Note Here</h1>
                 <Seperator />
@@ -104,20 +106,28 @@ function Signup() {
                       Fullname is required!
                     </Form.Control.Feedback>
                   </Form.Group>
-                  {/* Username */}
+                  {/* Email */}
                   <Form.Group className="mb-1">
                     <Form.Label>
-                      Username <RequireAstrix />
+                      Email <RequireAstrix />
                     </Form.Label>
                     <Form.Control
                       required
-                      type="text"
-                      placeholder=""
-                      onChange={(e) => setUsername(e.target.value)}
-                      isInvalid={validForm && username === "" ? true : false}
+                      type="email"
+                      placeholder="example@mail.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                      isInvalid={
+                        validForm &&
+                        (email === "" || (email !== "" && !IsValidEmail(email)))
+                          ? true
+                          : false
+                      }
                     />
                     <Form.Control.Feedback type="invalid">
-                      Username is required!
+                      {email === "" && <>Email is required!</>}
+                      {email !== "" && !IsValidEmail(email) && (
+                        <>Email is not valid!</>
+                      )}
                     </Form.Control.Feedback>
                   </Form.Group>
                   {/* Password */}
@@ -162,14 +172,21 @@ function Signup() {
                       )}
                     </Form.Control.Feedback>
                   </Form.Group>
-                  <Row className="mx-auto justify-content-center d-flex">
+                  <Row className="mx-auto mb-1 justify-content-center d-flex">
                     <LoadingButton
                       className="btn btn-primary btn-md btn-block col-lg-3 col-md-12 col-sm-12"
-                      disabled={loginLoading}
+                      disabled={signupLoading}
                       type="submit"
                       text="Sign Up"
-                      showLoading={loginLoading}
+                      showLoading={signupLoading}
                     />
+                  </Row>
+                  <Row className="mx-auto justify-content-center d-flex text-center">
+                    <div className="col-12 p-0">
+                      <p className="">
+                        Already have an account? <Link to="/login">Login!</Link>
+                      </p>
+                    </div>
                   </Row>
                 </Form>
               </Row>

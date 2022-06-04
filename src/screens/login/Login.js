@@ -1,4 +1,5 @@
 import "./Login.css";
+import "../../App.css";
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
@@ -6,13 +7,21 @@ import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
 import Seperator from "../../components/seperator/Seperator";
 import LoadingButton from "../../components/loading-button/LoadingButton";
 import { Link } from "react-router-dom";
+import { IsValidEmail } from "../../utilities/Validator";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [failedLogin, setFailedLogin] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+
+  const Invalid = () => {
+    if (!IsValidEmail(email) || password === "") {
+      return true;
+    }
+    return false;
+  };
 
   const OnLogin = async (event) => {
     const form = event.currentTarget;
@@ -23,7 +32,7 @@ function Login() {
 
     setValidForm(true);
 
-    if (username === "" || password === "") {
+    if (Invalid()) {
       return;
     }
 
@@ -31,7 +40,7 @@ function Login() {
     event.preventDefault();
 
     await setTimeout(() => {
-      if (username === "admin" && password === "admin") {
+      if (email === "admin" && password === "admin") {
         setFailedLogin(false);
       } else {
         setFailedLogin(true);
@@ -64,17 +73,25 @@ function Login() {
                 <Form noValidate onSubmit={OnLogin}>
                   <Form.Group className="mb-1">
                     <Form.Label>
-                      Username <RequireAstrix />
+                      Email <RequireAstrix />
                     </Form.Label>
                     <Form.Control
                       required
-                      type="text"
+                      type="email"
                       placeholder=""
-                      onChange={(e) => setUsername(e.target.value)}
-                      isInvalid={validForm && username === "" ? true : false}
+                      onChange={(e) => setEmail(e.target.value)}
+                      isInvalid={
+                        validForm &&
+                        (email === "" || (email !== "" && !IsValidEmail(email)))
+                          ? true
+                          : false
+                      }
                     />
                     <Form.Control.Feedback type="invalid">
-                      Username is required!
+                      {email === "" && <>Email is required!</>}
+                      {email !== "" && !IsValidEmail(email) && (
+                        <>Email is not valid!</>
+                      )}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group className="mb-2">
@@ -96,9 +113,7 @@ function Login() {
                     <div className="col-lg-9 col-md-12 col-sm-12 p-0">
                       <p className="">
                         Don't have account yet?{" "}
-                        <Link to="/signup">
-                          Sign up here!
-                        </Link>
+                        <Link to="/signup">Sign up here!</Link>
                       </p>
                     </div>
                     <LoadingButton
