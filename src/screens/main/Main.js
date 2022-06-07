@@ -1,7 +1,10 @@
 function Main(props) {
   return (
     <>
-      <div>Main Page</div>
+      <div>
+        Main Screen
+        <h1>Main Screen</h1>
+      </div>
     </>
   );
 }

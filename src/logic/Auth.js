@@ -7,15 +7,15 @@ class Authentication {
     let successLogin = true;
     let message = "Hi I'm a message";
     if (
-      loginPayload.Username === "admin@gmail.com" &&
-      loginPayload.Passwrd === "admin"
+      loginPayload.Username === "a@gmail.com" &&
+      loginPayload.Passwrd === "a"
     ) {
       successLogin = true;
       message = "Success";
       this.isAuthenticate = true;
     } else {
       successLogin = false;
-      message = "Falied";
+      message = "Login failed, wrong username or password";
       this.isAuthenticate = false;
     }
     //
@@ -26,7 +26,7 @@ class Authentication {
     return this.isAuthenticate;
   }
 
-  IsAuthorize() {
+  IsAuthorize(authorizeKey) {
     return true;
   }
 }

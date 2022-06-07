@@ -47,7 +47,7 @@ function Login(props) {
       new LoginPayload(email, password),
       (success, message) => {
         if (success === true) {
-          console.log("Login success")
+          console.log("Login success");
           navigate(location?.state?.path || "/");
         } else {
           console.error("Login failed " + message);
