@@ -6,13 +6,18 @@ import { Alert } from "react-bootstrap";
 import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
 import Seperator from "../../components/seperator/Seperator";
 import LoadingButton from "../../components/loading-button/LoadingButton";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IsValidEmail } from "../../utilities/Validator";
+import useAuth from "../../logic/Auth.js";
+import { LoginPayload } from "../../logic/Auth.js";
 
-function Login() {
+function Login(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [failedLogin, setFailedLogin] = useState(false);
+  const [failedLoginMessage, setFailedLoginMessage] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
@@ -38,15 +43,20 @@ function Login() {
 
     setLoginLoading(true);
     event.preventDefault();
-
-    await setTimeout(() => {
-      if (email === "admin" && password === "admin") {
-        setFailedLogin(false);
-      } else {
-        setFailedLogin(true);
+    await useAuth.Login(
+      new LoginPayload(email, password),
+      (success, message) => {
+        if (success === true) {
+          console.log("Login success")
+          navigate(location?.state?.path || "/");
+        } else {
+          console.error("Login failed " + message);
+          setFailedLoginMessage(message);
+          setFailedLogin(true);
+        }
       }
-      setLoginLoading(false);
-    }, 3000);
+    );
+    setLoginLoading(false);
   };
 
   return (
@@ -67,7 +77,7 @@ function Login() {
                     key={"danger"}
                     variant={"danger"}
                   >
-                    Login failed, wrong username or password!
+                    {failedLoginMessage}
                   </Alert>
                 )}
                 <Form noValidate onSubmit={OnLogin}>
@@ -78,7 +88,7 @@ function Login() {
                     <Form.Control
                       required
                       type="email"
-                      placeholder=""
+                      placeholder="example@mail.com"
                       onChange={(e) => setEmail(e.target.value)}
                       isInvalid={
                         validForm &&

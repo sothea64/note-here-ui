@@ -7,18 +7,25 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./screens/login/Login";
 import NotFound from "./screens/notfound/NotFound";
 import Signup from "./screens/signup/SignUp";
+import Main from "./screens/main/Main.js";
+import ProtectedRoute from "./components/protected-route/AuthenticatedRoute.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />}>
-          <Route index element={<Login />} />
-        </Route>
-        <Route path="*" element={<NotFound/>} />
+        <Route path="*" element={<NotFound />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Main />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
