@@ -1,6 +1,6 @@
 import "./Login.css";
 import "../../App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IsValidEmail } from "../../utilities/Validator";
 import useAuth from "../../logic/Auth.js";
 import { LoginPayload } from "../../logic/Auth.js";
+import { ThemeContext, themes } from "../../contexts/ThemeContext";
 
 function Login(props) {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ function Login(props) {
   const [failedLoginMessage, setFailedLoginMessage] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+
+  const [darkMode, setDarkMode] = React.useState(true);
 
   const Invalid = () => {
     if (!IsValidEmail(email) || password === "") {
@@ -47,10 +50,8 @@ function Login(props) {
       new LoginPayload(email, password),
       (success, message) => {
         if (success === true) {
-          console.log("Login success");
           navigate(location?.state?.path || "/");
         } else {
-          console.error("Login failed " + message);
           setFailedLoginMessage(message);
           setFailedLogin(true);
         }
@@ -61,7 +62,7 @@ function Login(props) {
 
   return (
     <>
-      <section style={{ height: "100vh", backgroundColor: "lightblue" }}>
+      <section style={{ height: "100vh" }}>
         <div className="container py-5 h-100">
           <div className="row justify-content-center align-items-center h-100">
             <div className="col shadow-sm p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
@@ -135,6 +136,23 @@ function Login(props) {
                     />
                   </Row>
                 </Form>
+                <Row>
+                  <ThemeContext.Consumer>
+                    {({ changeTheme }) => (
+                      <LoadingButton
+                        className="mt-3"
+                        type="button"
+                        color="link"
+                        text="Change Theme"
+                        onClick={() => {
+                          console.info("Change theme clicked");
+                          setDarkMode(!darkMode);
+                          changeTheme(darkMode ? themes.light : themes.dark);
+                        }}
+                      />
+                    )}
+                  </ThemeContext.Consumer>
+                </Row>
               </Row>
             </div>
           </div>

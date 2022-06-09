@@ -5,10 +5,11 @@ import useAuth from "../../logic/Auth.js";
 const ProtectedRoute = ({ children, authorizeKey }) => {
   const location = useLocation();
   let isAuthorize = false;
+  authorizeKey = authorizeKey === undefined || 0;
   // let authorizeKey = 0;
-  if (authorizeKey != 0) {
+  if (authorizeKey !== 0) {
     isAuthorize = useAuth.IsAuthenticate() && useAuth.IsAuthorize(authorizeKey);
-  } else if (authorizeKey == 0) {
+  } else if (authorizeKey === 0) {
     isAuthorize = useAuth.IsAuthenticate();
   }
   return isAuthorize ? (

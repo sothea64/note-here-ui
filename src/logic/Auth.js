@@ -1,29 +1,39 @@
+export const TOKEN_KEY = () => "nh_token";
 class Authentication {
   constructor() {}
 
-  static isAuthenticate = false;
+  #setAuthentication(token) {
+    sessionStorage.setItem(TOKEN_KEY, token);
+  }
+
+  #getAuthentication() {
+    return sessionStorage.getItem(TOKEN_KEY);
+  }
 
   Login = async (loginPayload, callBack) => {
     let successLogin = true;
-    let message = "Hi I'm a message";
+    let message = "";
     if (
       loginPayload.Username === "a@gmail.com" &&
       loginPayload.Passwrd === "a"
     ) {
       successLogin = true;
       message = "Success";
-      this.isAuthenticate = true;
+      this.#setAuthentication(true);
     } else {
       successLogin = false;
       message = "Login failed, wrong username or password";
-      this.isAuthenticate = false;
+      this.#setAuthentication(false);
     }
     //
     callBack(successLogin, message);
   };
 
   IsAuthenticate() {
-    return this.isAuthenticate;
+    if (this.#getAuthentication() === undefined) {
+      return false;
+    }
+    return this.#getAuthentication();
   }
 
   IsAuthorize(authorizeKey) {
