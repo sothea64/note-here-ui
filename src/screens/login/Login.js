@@ -22,8 +22,6 @@ function Login(props) {
   const [validForm, setValidForm] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  const [darkMode, setDarkMode] = React.useState(true);
-
   const Invalid = () => {
     if (!IsValidEmail(email) || password === "") {
       return true;
