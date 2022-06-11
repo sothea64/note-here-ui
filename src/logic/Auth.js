@@ -1,4 +1,5 @@
-export const TOKEN_KEY = () => "nh_token";
+import { TOKEN_KEY } from "../contexts/StaticKeys.js";
+
 class Authentication {
   constructor() {}
 

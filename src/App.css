@@ -1,9 +1,11 @@
 .light-mode {
   background-color: lightblue;
   color: black;
+  border-color: whitesmoke;
 }
 
 .dark-mode {
   background-color: black;
   color: white;
+  border-color: whitesmoke;
 }
