@@ -66,7 +66,7 @@ function Login(props) {
             <div className="col shadow-sm p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
               <Row>
                 <h1 className="col">Note Here</h1>
-                <ThemeButton className="col col-md-1 col-lg-1 col-sm-1" />
+                <ThemeButton className="col col-1 col-md-1 col-lg-1 col-sm-1 m-1 mt-0" />
                 <Seperator />
               </Row>
               <Row className="mb-3">

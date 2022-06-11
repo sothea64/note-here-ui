@@ -4,11 +4,11 @@ class Authentication {
   constructor() {}
 
   #setAuthentication(token) {
-    sessionStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
   #getAuthentication() {
-    return sessionStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY);
   }
 
   Login = async (loginPayload, callBack) => {

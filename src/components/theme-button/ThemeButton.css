@@ -1,0 +1,11 @@
+.ThemeButton{
+    background-color: transparent;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid transparent;
+    border-radius: 50%;
+}
+
+.ThemeButton:hover{
+    background-color: rgba(211, 211, 211, 0.418);
+}

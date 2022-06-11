@@ -23,14 +23,13 @@ function ThemeButton(props) {
 
   return (
     <>
-      <div className={props.className}>
+      <div className={"" + " " + props.className}>
         <ThemeContext.Consumer>
           {({ changeTheme }) => (
             <button
+              className="ThemeButton"
               style={{
-                backgroundColor: "transparent",
                 color: darkMode === true ? "white" : "black",
-                borderColor: "transparent",
               }}
               onClick={() => {
                 setDarkMode(!darkMode);
