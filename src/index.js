@@ -13,24 +13,22 @@ import ThemeContextWrapper from "./components/theme-context-wrapper/ThemeContext
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ThemeContextWrapper>
-    <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          {/* Protected */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Main />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+        {/* Protected */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Main />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   </ThemeContextWrapper>
 );
 

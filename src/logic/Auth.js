@@ -30,6 +30,10 @@ class Authentication {
     callBack(successLogin, message);
   };
 
+  Logout = async () => {
+    localStorage.removeItem(TOKEN_KEY);
+  };
+
   IsAuthenticate() {
     if (this.#getAuthentication() === undefined) {
       return false;
