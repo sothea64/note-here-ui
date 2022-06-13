@@ -19,49 +19,47 @@ function Main(props) {
             <div>
               <Navbar
                 variant={theme === themes.dark ? "dark" : "light"}
-                style={{ border: "0px solid white", borderBottomWidth: "1px" }}
+                style={{ border: "0px solid white", borderBottomWidth: "1px", paddingLeft:"10px", marginRight:"10px" }}
                 expand="lg"
               >
-                <Container variant={theme === themes.dark ? "dark" : "light"}>
-                  <Navbar.Brand>
-                    <Link
-                      style={{
-                        color: themesJSX[theme].color,
-                        textDecoration: "none",
-                      }}
-                      to="/"
-                    >
-                      Note Here
-                    </Link>
-                  </Navbar.Brand>
-                  <Navbar.Toggle
-                    style={{ color: themesJSX[theme].color }}
-                    variant={theme === themes.dark ? "dark" : "light"}
-                    aria-controls="basic-navbar-nav"
-                  />
-                  <Navbar.Collapse
-                    variant={theme === themes.dark ? "dark" : "light"}
-                    id="basic-navbar-nav"
+                <Navbar.Brand>
+                  <Link
+                    style={{
+                      color: themesJSX[theme].color,
+                      textDecoration: "none",
+                    }}
+                    to="/"
                   >
-                    <Nav className="me-auto">
-                      <Nav.Link
-                        style={{ color: themesJSX[theme].color }}
-                        sm={{ order: 1 }}
-                        href="#note"
-                      >
-                        Note
-                      </Nav.Link>
-                      <Nav.Link
-                        style={{ color: themesJSX[theme].color }}
-                        sm={{ order: 2 }}
-                        href="#todo"
-                      >
-                        To-Do
-                      </Nav.Link>
-                    </Nav>
-                    <ThemeButton className="m-0 p-0 sm-order-0" />
-                  </Navbar.Collapse>
-                </Container>
+                    Note Here
+                  </Link>
+                </Navbar.Brand>
+                <Navbar.Toggle
+                  style={{ color: themesJSX[theme].color }}
+                  variant={theme === themes.dark ? "dark" : "light"}
+                  aria-controls="basic-navbar-nav"
+                />
+                <Navbar.Collapse
+                  variant={theme === themes.dark ? "dark" : "light"}
+                  id="basic-navbar-nav"
+                >
+                  <Nav className="me-auto">
+                    <Nav.Link
+                      style={{ color: themesJSX[theme].color }}
+                      sm={{ order: 1 }}
+                      href="#note"
+                    >
+                      Note
+                    </Nav.Link>
+                    <Nav.Link
+                      style={{ color: themesJSX[theme].color }}
+                      sm={{ order: 2 }}
+                      href="#todo"
+                    >
+                      To-Do
+                    </Nav.Link>
+                  </Nav>
+                  <ThemeButton className="m-0 p-0 sm-order-0" />
+                </Navbar.Collapse>
               </Navbar>
               <div className="pt-2">
                 <section
@@ -77,7 +75,7 @@ function Main(props) {
                       padding: "1px",
                       backgroundColor: "whitesmoke",
                       border: "1px solid transparent",
-                      borderRadius: "5px"
+                      borderRadius: "5px",
                     }}
                   >
                     <div
