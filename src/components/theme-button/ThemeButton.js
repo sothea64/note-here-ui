@@ -8,6 +8,7 @@ import "./ThemeButton.css";
 import {
   BsFillBrightnessHighFill,
   BsFillBrightnessLowFill,
+  BsMoonFill
 } from "react-icons/bs";
 
 function ThemeButton(props) {
@@ -44,7 +45,7 @@ function ThemeButton(props) {
               )) || (
                 <>
                   {/* Change back to Dark */}
-                  <BsFillBrightnessLowFill />
+                  <BsMoonFill />
                 </>
               )}
             </button>

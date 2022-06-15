@@ -1,7 +1,7 @@
 import "./Login.css";
 import "../../App.css";
 import React, { useState } from "react";
-import { Form, Row } from "react-bootstrap";
+import { Form, Row, Container, Col } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
 import Seperator from "../../components/seperator/Seperator";
@@ -61,12 +61,16 @@ function Login(props) {
   return (
     <>
       <section style={{ height: "100vh" }}>
-        <div className="container py-5 h-100">
-          <div className="row justify-content-center align-items-center h-100">
-            <div className="col shadow-sm p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
+        <Container className="py-5 h-100">
+          <Row className="justify-content-center align-items-center h-100">
+            <Col className="shadow-sm p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
               <Row>
-                <h1 className="col">Note Here</h1>
-                <ThemeButton className="col col-1 col-md-1 col-lg-1 col-sm-1 m-1 mt-0" />
+                <Col>
+                  <h1 className="">Note Here</h1>
+                </Col>
+                <Col className="col-1 col-md-1 col-lg-1 col-sm-1 m-1 mt-0">
+                  <ThemeButton />
+                </Col>
                 <Seperator />
               </Row>
               <Row className="mb-3">
@@ -120,12 +124,12 @@ function Login(props) {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Row className="mx-auto justify-content-center d-flex">
-                    <div className="col-lg-9 col-md-12 col-sm-12 p-0">
+                    <Col className="col-lg-9 col-md-12 col-sm-12 p-0">
                       <p className="">
                         Don't have account yet?{" "}
                         <Link to="/signup">Sign up here!</Link>
                       </p>
-                    </div>
+                    </Col>
                     <LoadingButton
                       className="btn btn-primary btn-md btn-block col-lg-3 col-md-12 col-sm-12"
                       disabled={loginLoading}
@@ -136,9 +140,9 @@ function Login(props) {
                   </Row>
                 </Form>
               </Row>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
     </>
   );

@@ -1,22 +1,28 @@
 import { createContext } from "react";
 import { THEME_KEY } from "./StaticKeys.js";
 
-const DARK_MODE = "dark-mode";
-const LIGHT_MODE = "light-mode";
+const DARK_MODE = "bg-dark";
+const LIGHT_MODE = "bg-light";
 
 export const themes = {
   dark: DARK_MODE,
   light: LIGHT_MODE,
 };
 
-export const themesJSX = {
-  "dark-mode": {
-    backgroundColor: "black",
+export const ThemesProperties = {
+  "bg-dark": {
+    variant: "dark",
+    backgroundColor: "gray",
     color: "white",
+    bgClassName: "bg-dark",
+    textClassName: "text-light"
   },
-  "light-mode": {
-    backgroundColor: "lightblue",
+  "bg-light": {
+    variant: "light",
+    backgroundColor: "white",
     color: "black",
+    bgClassName: "bg-light",
+    textClassName: "text-dark"
   },
 };
 

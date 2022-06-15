@@ -1,12 +1,13 @@
 import "./SignUp.css";
 import { useRef, useState } from "react";
-import { Form, Row } from "react-bootstrap";
+import { Form, Row, Container, Col } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import RequireAstrix from "../../components/require-astrix/RequireAstrix.js";
 import Seperator from "../../components/seperator/Seperator";
 import LoadingButton from "../../components/loading-button/LoadingButton";
 import { IsValidEmail } from "../../utilities/Validator";
 import { Link } from "react-router-dom";
+import ThemeButton from "../../components/theme-button/ThemeButton";
 
 function Signup() {
   const [fullname, setFullname] = useState("");
@@ -67,12 +68,17 @@ function Signup() {
 
   return (
     <>
-      <section style={{ height: "100vh", backgroundColor: "lightblue" }}>
-        <div className="container pt-5 h-100">
-          <div className="row justify-content-center align-items-center h-100">
-            <div className="col shadow-sm pb-0 p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
+      <section style={{ height: "100vh" }}>
+        <Container className="pt-5 h-100">
+          <Row className="justify-content-center align-items-center h-100">
+            <Col className="shadow-sm pb-0 p-4 col-11 col-sm-11 col-md-8 col-lg-6 col-xl-5 LoginMain">
               <Row>
-                <h1>Note Here</h1>
+                <Col>
+                  <h1>Note Here</h1>
+                </Col>
+                <Col className="col-1 col-md-1 col-lg-1 col-sm-1 m-1 mt-0">
+                  <ThemeButton />
+                </Col>
                 <Seperator />
               </Row>
               <Row className="mb-1">
@@ -182,17 +188,17 @@ function Signup() {
                     />
                   </Row>
                   <Row className="mx-auto justify-content-center d-flex text-center">
-                    <div className="col-12 p-0">
+                    <Col className="col-12 p-0">
                       <p className="">
                         Already have an account? <Link to="/login">Login!</Link>
                       </p>
-                    </div>
+                    </Col>
                   </Row>
                 </Form>
               </Row>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </section>
     </>
   );

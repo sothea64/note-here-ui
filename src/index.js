@@ -12,24 +12,26 @@ import ThemeContextWrapper from "./components/theme-context-wrapper/ThemeContext
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ThemeContextWrapper>
-    <BrowserRouter>
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        {/* Protected */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Main />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
-  </ThemeContextWrapper>
+  <React.StrictMode>
+    <ThemeContextWrapper>
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          {/* Protected */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Main />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </ThemeContextWrapper>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

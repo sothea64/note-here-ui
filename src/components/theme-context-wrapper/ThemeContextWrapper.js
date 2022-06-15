@@ -4,6 +4,7 @@ import {
   ThemeContext,
   rememberTheme,
   getRememberTheme,
+  ThemesProperties,DARK_MODE
 } from "../../contexts/ThemeContext.js";
 
 export default function ThemeContextWrapper(props) {
@@ -21,12 +22,20 @@ export default function ThemeContextWrapper(props) {
       return;
     }
     if (theme === themes.light) {
-      document.body.classList.remove(themes.dark);
-      document.body.classList.add(themes.light);
+      // remove dark
+      document.body.classList.remove(ThemesProperties[themes.dark].bgClassName);
+      document.body.classList.remove(ThemesProperties[themes.dark].textClassName);
+      // add light
+      document.body.classList.add(ThemesProperties[themes.light].bgClassName);
+      document.body.classList.add(ThemesProperties[themes.light].textClassName);
       rememberTheme(themes.light);
     } else {
-      document.body.classList.remove(themes.light);
-      document.body.classList.add(themes.dark);
+      // remove light
+      document.body.classList.remove(ThemesProperties[themes.light].bgClassName);
+      document.body.classList.remove(ThemesProperties[themes.light].textClassName);
+      // add dark
+      document.body.classList.add(ThemesProperties[themes.dark].bgClassName);
+      document.body.classList.add(ThemesProperties[themes.dark].textClassName);
       rememberTheme(themes.dark);
     }
     ThemeContext.theme = theme;
