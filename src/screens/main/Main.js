@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Navbar, Container, Nav, Button, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../../App.css";
 import Seperator from "../../components/seperator/Seperator";
@@ -9,20 +9,22 @@ import {
   themes,
   ThemesProperties,
 } from "../../contexts/ThemeContext.js";
+import LoadingButton from "../../components/loading-button/LoadingButton";
+import { BsPersonCircle } from "react-icons/bs";
+import { IsString } from "../../utilities/Validator";
 
 function Main(props) {
+  const [showProfile, setShowProfile] = useState(false);
+
   return (
     <div style={{ height: "100vh" }}>
       <ThemeContext.Consumer>
         {({ theme }) =>
-          (theme === undefined && <h1>Loading...</h1>) || (
+          ((theme === undefined || !IsString(theme)) && <h1>Loading...</h1>) || (
             <div>
               <Navbar
+                className="p-2 m-0"
                 variant={ThemesProperties[theme].variant}
-                style={{
-                  paddingLeft: "10px",
-                  marginRight: "10px",
-                }}
                 expand="lg"
                 onToggle={() => {}}
               >
@@ -38,46 +40,60 @@ function Main(props) {
                   </Link>
                 </Navbar.Brand>
                 <Navbar.Toggle
-                  style={{ color: ThemesProperties[theme].color }}
                   variant={ThemesProperties[theme].variant}
                   aria-controls="basic-navbar-nav"
                 />
                 <Navbar.Collapse
-                  variant={theme === themes.dark ? "dark" : "light"}
+                  variant={ThemesProperties[theme].variant}
                   id="basic-navbar-nav"
                 >
                   <Nav className="me-auto">
-                    <Nav.Link
-                      style={{ color: ThemesProperties[theme].color }}
-                      href="#note"
-                    >
-                      Note
-                    </Nav.Link>
-                    <Nav.Link
-                      style={{ color: ThemesProperties[theme].color }}
-                      href="#todo"
-                    >
-                      To-Do
-                    </Nav.Link>
+                    <Nav.Link href="#note">Note</Nav.Link>
+                    <Nav.Link href="#todo">To-Do</Nav.Link>
                   </Nav>
                   <ThemeButton className="m-0 p-0 sm-order-0" />
+                  <Link
+                    className={"btn btn-" + ThemesProperties[theme].variant}
+                    style={{
+                      textDecoration: "none",
+                    }}
+                    to="/login"
+                  >
+                    Logout
+                  </Link>
+                  <button
+                    className={"btn-" + ThemesProperties[theme].variant}
+                    style={{ border: "1px solid transparent" }}
+                    onClick={() => setShowProfile(true)}
+                  >
+                    <BsPersonCircle className="m-0 p-0" size="1.5em" />
+                  </button>
+                  <Modal
+                    show={showProfile}
+                    onHide={() => setShowProfile(false)}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p>Hello from body</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary">Close</Button>
+                      <Button variant="primary">Save Changes</Button>
+                    </Modal.Footer>
+                  </Modal>
                 </Navbar.Collapse>
               </Navbar>
               <Seperator />
               <div
                 className="col col-sm-12 col-md-3 col-lg-3 col-xlg-3 m-0-auto"
                 style={{
-                  height: `calc(100vh - 65px)`,
-                  backgroundColor: "red",
+                  height: `calc(93vh)`,
+                  overflow: "auto",
                 }}
               >
-                <div
-                  style={{
-                    height: "100%",
-                    minHeight: "100%",
-                    backgroundColor: "gray",
-                  }}
-                >
+                <div>
                   <div
                     className="card m-1 p-1 shadow-sm btn btn-primary"
                     style={{

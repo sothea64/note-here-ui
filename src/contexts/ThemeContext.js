@@ -12,17 +12,17 @@ export const themes = {
 export const ThemesProperties = {
   "bg-dark": {
     variant: "dark",
-    backgroundColor: "gray",
+    backgroundColor: "#212529",
     color: "white",
     bgClassName: "bg-dark",
-    textClassName: "text-light"
+    textClassName: "text-light",
   },
   "bg-light": {
     variant: "light",
     backgroundColor: "white",
     color: "black",
     bgClassName: "bg-light",
-    textClassName: "text-dark"
+    textClassName: "text-dark",
   },
 };
 

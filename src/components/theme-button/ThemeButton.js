@@ -3,6 +3,7 @@ import {
   ThemeContext,
   themes,
   getRememberTheme,
+  ThemesProperties,
 } from "../../contexts/ThemeContext";
 import "./ThemeButton.css";
 import {
@@ -30,7 +31,7 @@ function ThemeButton(props) {
             <button
               className="ThemeButton"
               style={{
-                color: darkMode === true ? "white" : "black",
+                color: darkMode === true ? ThemesProperties[themes.dark].color : ThemesProperties[themes.light].color,
               }}
               onClick={() => {
                 setDarkMode(!darkMode);
