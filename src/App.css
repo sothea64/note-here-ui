@@ -9,3 +9,9 @@
   color: white;
   border-color: whitesmoke;
 }
+
+:global(.noborder-button){
+  border: none !important;
+  box-shadow: none !important;
+}
+

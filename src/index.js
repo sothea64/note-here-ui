@@ -9,6 +9,7 @@ import Signup from "./screens/signup/SignUp";
 import Main from "./screens/main/Main.js";
 import ProtectedRoute from "./components/protected-route/AuthenticatedRoute.js";
 import ThemeContextWrapper from "./components/theme-context-wrapper/ThemeContextWrapper";
+import "./App.css"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

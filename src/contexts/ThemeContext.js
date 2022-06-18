@@ -12,6 +12,7 @@ export const themes = {
 export const ThemesProperties = {
   "bg-dark": {
     variant: "dark",
+    closeButtonVariant: "white",
     backgroundColor: "#212529",
     color: "white",
     bgClassName: "bg-dark",
@@ -19,6 +20,7 @@ export const ThemesProperties = {
   },
   "bg-light": {
     variant: "light",
+    closeButtonVariant: "",
     backgroundColor: "white",
     color: "black",
     bgClassName: "bg-light",

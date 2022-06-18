@@ -8,9 +8,9 @@ import {
 import "./ThemeButton.css";
 import {
   BsFillBrightnessHighFill,
-  BsFillBrightnessLowFill,
-  BsMoonFill
+  BsMoonFill,
 } from "react-icons/bs";
+import "../../App.css"
 
 function ThemeButton(props) {
   const [darkMode, setDarkMode] = useState();
@@ -29,9 +29,15 @@ function ThemeButton(props) {
         <ThemeContext.Consumer>
           {({ changeTheme }) => (
             <button
-              className="ThemeButton"
+              className={
+                "noborder-button btn-" +
+                (darkMode === true
+                  ? ThemesProperties[themes.dark].variant
+                  : ThemesProperties[themes.light].variant)
+              }
               style={{
-                color: darkMode === true ? ThemesProperties[themes.dark].color : ThemesProperties[themes.light].color,
+                border:"none",
+                boxShadow:"none"
               }}
               onClick={() => {
                 setDarkMode(!darkMode);
@@ -41,12 +47,12 @@ function ThemeButton(props) {
               {(darkMode === true && (
                 <>
                   {/* Change back to Light */}
-                  <BsFillBrightnessHighFill />
+                  <BsFillBrightnessHighFill className="m-0 p-0" size="1em" />
                 </>
               )) || (
                 <>
                   {/* Change back to Dark */}
-                  <BsMoonFill />
+                  <BsMoonFill className="m-0 p-0" size="1em" />
                 </>
               )}
             </button>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Navbar, Container, Nav, Button, Modal, Row } from "react-bootstrap";
+import { Navbar, Nav, Row, Overlay, Popover, Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../../App.css";
 import Seperator from "../../components/seperator/Seperator";
@@ -15,20 +15,29 @@ import { IsString } from "../../utilities/Validator";
 
 function Main(props) {
   const [showProfile, setShowProfile] = useState(false);
+  const navbarRef = useRef(null);
+  const profileButtonRef = useRef(null);
+
+  const handleShowProflileClick = (event) => {
+    setShowProfile(!showProfile);
+  };
 
   return (
     <div style={{ height: "100vh" }}>
       <ThemeContext.Consumer>
         {({ theme }) =>
-          ((theme === undefined || !IsString(theme)) && <h1>Loading...</h1>) || (
+          ((theme === undefined || !IsString(theme)) && (
+            <h1>Loading...</h1>
+          )) || (
             <div>
               <Navbar
                 className="p-2 m-0"
                 variant={ThemesProperties[theme].variant}
                 expand="lg"
-                onToggle={() => {}}
+                ref={navbarRef}
+                collapseOnSelect="true"
               >
-                <Navbar.Brand>
+                <Navbar.Brand className="d-none d-lg-block">
                   <Link
                     className={ThemesProperties[theme].textClassName}
                     style={{
@@ -43,47 +52,92 @@ function Main(props) {
                   variant={ThemesProperties[theme].variant}
                   aria-controls="basic-navbar-nav"
                 />
-                <Navbar.Collapse
-                  variant={ThemesProperties[theme].variant}
-                  id="basic-navbar-nav"
+                <Navbar.Offcanvas
+                  id={`offcanvasNavbar-expand-navbar`}
+                  placement="start"
+                  style={{
+                    backgroundColor: ThemesProperties[theme].backgroundColor,
+                    color: ThemesProperties[theme].color,
+                  }}
                 >
-                  <Nav className="me-auto">
-                    <Nav.Link href="#note">Note</Nav.Link>
-                    <Nav.Link href="#todo">To-Do</Nav.Link>
-                  </Nav>
-                  <ThemeButton className="m-0 p-0 sm-order-0" />
-                  <Link
-                    className={"btn btn-" + ThemesProperties[theme].variant}
+                  <Offcanvas.Header
+                    className="m-0 p-3 pb-0 p-lg-0"
+                    closeButton
+                    closeVariant={ThemesProperties[theme].closeButtonVariant}
+                  >
+                    <Offcanvas.Title
+                      className={ThemesProperties[theme].bgClassName}
+                      id={`offcanvasNavbarLabel-expand-navbar`}
+                    >
+                      Note Here
+                    </Offcanvas.Title>
+                  </Offcanvas.Header>
+                  <Offcanvas.Body
+                    className="m-0 p-3 pt-3 p-lg-0"
                     style={{
-                      textDecoration: "none",
+                      backgroundColor: ThemesProperties[theme].backgroundColor,
+                      color: ThemesProperties[theme].color,
                     }}
-                    to="/login"
                   >
-                    Logout
-                  </Link>
-                  <button
-                    className={"btn-" + ThemesProperties[theme].variant}
-                    style={{ border: "1px solid transparent" }}
-                    onClick={() => setShowProfile(true)}
+                    <Nav className="me-auto">
+                      <Nav.Link href="#dashboard">Dashboard</Nav.Link>
+                      <Nav.Link href="#note">Note</Nav.Link>
+                      <Nav.Link href="#todo">To-Do</Nav.Link>
+                    </Nav>
+                  </Offcanvas.Body>
+                </Navbar.Offcanvas>
+                {/* Profile Button */}
+                <button
+                  className={"btn-" + ThemesProperties[theme].variant}
+                  style={{ border: "1px solid transparent" }}
+                  onClick={handleShowProflileClick}
+                  ref={profileButtonRef}
+                >
+                  <BsPersonCircle className="m-0 p-0" size="1.5em" />
+                </button>
+                <Overlay
+                  show={showProfile}
+                  target={profileButtonRef}
+                  placement="bottom"
+                  container={navbarRef}
+                  rootClose="true"
+                  onHide={handleShowProflileClick}
+                >
+                  <Popover
+                    id="profile-popover"
+                    className={"p-0 " + ThemesProperties[theme].bgClassName}
                   >
-                    <BsPersonCircle className="m-0 p-0" size="1.5em" />
-                  </button>
-                  <Modal
-                    show={showProfile}
-                    onHide={() => setShowProfile(false)}
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p>Hello from body</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary">Close</Button>
-                      <Button variant="primary">Save Changes</Button>
-                    </Modal.Footer>
-                  </Modal>
-                </Navbar.Collapse>
+                    <Popover.Body>
+                      <Row className="p-0 mb-1 text-align-left">
+                        <button
+                          className={
+                            "m-0 p-0 btn-" + ThemesProperties[theme].variant
+                          }
+                          style={{
+                            border: "none",
+                            boxShadow: "none",
+                          }}
+                        >
+                          Bo Chansothea
+                        </button>
+                      </Row>
+                      <Row>
+                        <ThemeButton className="m-0 mt-1 p-0 sm-order-0" />
+                        <Link
+                          className={"btn-" + ThemesProperties[theme].variant}
+                          style={{
+                            textDecoration: "none",
+                            border: "none",
+                            boxShadow: "none",
+                          }}
+                          to="/login"
+                        >
+                          Logout
+                        </Link>
+                      </Row>
+                    </Popover.Body>
+                  </Popover>
+                </Overlay>
               </Navbar>
               <Seperator />
               <div
