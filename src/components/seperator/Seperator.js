@@ -9,7 +9,7 @@ function Seperator() {
           (theme === undefined && <>Loading...</>) || (
             <hr
               className="Seperator m-0 p-0"
-              style={{ borderColor: ThemesProperties[theme].color, width:"100%" }}
+              style={{ borderColor: ThemesProperties[theme].color, width:"100%", maxHeight:"1px" }}
             />
           )
         }

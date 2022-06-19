@@ -9,7 +9,10 @@ import Signup from "./screens/signup/SignUp";
 import Main from "./screens/main/Main.js";
 import ProtectedRoute from "./components/protected-route/AuthenticatedRoute.js";
 import ThemeContextWrapper from "./components/theme-context-wrapper/ThemeContextWrapper";
-import "./App.css"
+import "./App.css";
+import Dashboard from "./screens/dashboard/Dashboard";
+import Note from "./screens/note/Note.js";
+import ToDo from "./screens/todo/ToDo.js"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,7 +28,39 @@ root.render(
             path="/"
             element={
               <ProtectedRoute>
-                <Main />
+                <Main>
+                  <Dashboard />
+                </Main>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Main>
+                  <Dashboard />
+                </Main>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/note"
+            element={
+              <ProtectedRoute>
+                <Main>
+                  <Note/>
+                </Main>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/todo"
+            element={
+              <ProtectedRoute>
+                <Main>
+                  <ToDo/>
+                </Main>
               </ProtectedRoute>
             }
           />
