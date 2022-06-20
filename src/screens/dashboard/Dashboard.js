@@ -6,6 +6,7 @@ function Dashboard(props) {
   return (
     <>
       <div>
+        <h1>Dashboard</h1>
         <div
           className="card m-1 p-1 shadow-sm btn btn-primary"
           style={{

@@ -12,7 +12,8 @@ import ThemeContextWrapper from "./components/theme-context-wrapper/ThemeContext
 import "./App.css";
 import Dashboard from "./screens/dashboard/Dashboard";
 import Note from "./screens/note/Note.js";
-import ToDo from "./screens/todo/ToDo.js"
+import ToDo from "./screens/todo/ToDo.js";
+import CustomNavbar from "./components/navbar/CustomNavbar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -49,7 +50,7 @@ root.render(
             element={
               <ProtectedRoute>
                 <Main>
-                  <Note/>
+                  <Note />
                 </Main>
               </ProtectedRoute>
             }
@@ -59,7 +60,7 @@ root.render(
             element={
               <ProtectedRoute>
                 <Main>
-                  <ToDo/>
+                  <ToDo />
                 </Main>
               </ProtectedRoute>
             }
