@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navbar, Nav, Row, Overlay, Popover, Offcanvas } from "react-bootstrap";
-import { Link, NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../../App.css";
-import Seperator from "../../components/seperator/Seperator";
 import ThemeButton from "../../components/theme-button/ThemeButton";
 import { ThemeContext, ThemesProperties } from "../../contexts/ThemeContext.js";
 import { BsPersonCircle } from "react-icons/bs";
-import { IsString } from "../../utilities/Validator";
+import {
+  IsString,
+  IsStringNotUndefinedOrEmpty,
+} from "../../utilities/Validator";
 import Auth from "../../logic/Auth";
 
 function CustomNavbar(props) {
@@ -14,15 +16,17 @@ function CustomNavbar(props) {
   const navbarRef = useRef(null);
   const navbarCanvasRef = useRef(null);
 
-  const closeNavOffCanvas = (e) => {
+  const closeNavOffCanvas = (route) => {
     if (navbarCanvasRef.current.backdrop !== undefined) {
       navbarCanvasRef.current.backdrop.click();
     }
-    navigate("/");
+    if (IsStringNotUndefinedOrEmpty(route)) {
+      navigate(route);
+    }
   };
 
   useEffect(() => {
-    console.info("Init navba");
+    // console.info("Init navba");
   }, [navbarRef]);
 
   return (
@@ -38,7 +42,7 @@ function CustomNavbar(props) {
               collapseOnSelect="true"
             >
               {/* Nav Brand */}
-              <Navbar.Brand className="d-none d-lg-block">
+              <Navbar.Brand className="d-none d-lg-block mb-1">
                 <CustomNavBrand theme={theme} onClick={closeNavOffCanvas} />
               </Navbar.Brand>
               {/* Nav Toggle */}
@@ -78,36 +82,12 @@ function CustomNavbar(props) {
                   {/* NavLinks */}
                   <Nav
                     className={
-                      "me-auto d-flex" + ThemesProperties[theme].variant
+                      "me-auto d-flex " + ThemesProperties[theme].variant
                     }
                   >
-                    <NavLink
-                      exact
-                      to="/dashboard"
-                      style={(isActive) => ({
-                        color: isActive ? "green" : "blue",
-                      })}
-                    >
-                      Dashboard
-                    </NavLink>
-                    <NavLink
-                      exact
-                      to="/note"
-                      style={(isActive) => ({
-                        color: isActive ? "green" : "blue",
-                      })}
-                    >
-                      Note
-                    </NavLink>
-                    <NavLink
-                      exact
-                      to="/todo"
-                      style={(isActive) => ({
-                        color: isActive ? "green" : "blue",
-                      })}
-                    >
-                      ToDo
-                    </NavLink>
+                    <CustomNavItem to="/dashboard">Dashboard</CustomNavItem>
+                    <CustomNavItem to="/note">Note</CustomNavItem>
+                    <CustomNavItem to="/todo">ToDo</CustomNavItem>
                   </Nav>
                 </Offcanvas.Body>
               </Navbar.Offcanvas>
@@ -118,6 +98,28 @@ function CustomNavbar(props) {
         )
       }
     </ThemeContext.Consumer>
+  );
+}
+
+export function CustomNavItem(props) {
+  const navLinkRef = useRef(null);
+
+  useEffect(() => {
+    console.log(navLinkRef.isActive);
+  }, [navLinkRef.isActive]);
+
+  return (
+    <>
+      <NavLink
+        className="p-2 nav-item nav-link"
+        exact="true"
+        to={props.to}
+        replace="true"
+        ref={navLinkRef}
+      >
+        {props.children}
+      </NavLink>
+    </>
   );
 }
 
@@ -174,13 +176,15 @@ export function CustomUserProfile(props) {
             <Row>
               <ThemeButton className="m-0 mt-1 p-0 sm-order-0" />
               <div
-                className={"btn-" + ThemesProperties[props.theme].variant}
+                className={
+                  "btn btn-sm btn-" + ThemesProperties[props.theme].variant
+                }
                 style={{
                   textDecoration: "none",
                   border: "none",
                   boxShadow: "none",
                 }}
-                onClick={props.handleLogOut}
+                onClick={handleLogOut}
               >
                 Logout
               </div>
@@ -204,7 +208,7 @@ export function CustomNavBrand(props) {
         border: "none",
         boxShadow: "none",
       }}
-      onClick={props.onClick}
+      onClick={() => props.onClick("/dashboard")}
     >
       Note Here
     </div>
