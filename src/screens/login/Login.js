@@ -8,8 +8,8 @@ import Seperator from "../../components/seperator/Seperator";
 import LoadingButton from "../../components/loading-button/LoadingButton";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IsValidEmail } from "../../utilities/Validator";
-import useAuth from "../../logic/Auth.js";
-import { LoginPayload } from "../../logic/Auth.js";
+import useAuth from "../../services/Auth.js";
+import { LoginPayload } from "../../services/Auth.js";
 import ThemeButton from "../../components/theme-button/ThemeButton";
 
 function Login(props) {
