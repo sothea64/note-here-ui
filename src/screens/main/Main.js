@@ -4,9 +4,6 @@ import Seperator from "../../components/seperator/Seperator";
 import { ThemeContext, ThemesProperties } from "../../contexts/ThemeContext.js";
 import { IsString } from "../../utilities/Validator";
 import CustomNavbar from "../../components/navbar/CustomNavbar";
-import Dashboard from "../dashboard/Dashboard";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "../../components/protected-route/AuthenticatedRoute";
 
 function Main(props) {
   return (

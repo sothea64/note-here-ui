@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Login from "./screens/login/Login";
 import NotFound from "./screens/notfound/NotFound";
 import Signup from "./screens/signup/SignUp";
@@ -13,7 +13,6 @@ import "./App.css";
 import Dashboard from "./screens/dashboard/Dashboard";
 import Note from "./screens/note/Note.js";
 import ToDo from "./screens/todo/ToDo.js";
-import CustomNavbar from "./components/navbar/CustomNavbar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,12 +25,11 @@ root.render(
           <Route path="signup" element={<Signup />} />
           {/* Protected */}
           <Route
+            exact="true"
             path="/"
             element={
               <ProtectedRoute>
-                <Main>
-                  <Dashboard />
-                </Main>
+                <Navigate to="/dashboard" replace="true"/>
               </ProtectedRoute>
             }
           />

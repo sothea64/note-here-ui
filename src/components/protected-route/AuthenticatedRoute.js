@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import useAuth from "../../logic/Auth.js";
+import useAuth from "../../services/Auth.js";
 
 const ProtectedRoute = ({ children, authorizeKey }) => {
   const location = useLocation();

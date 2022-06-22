@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navbar, Nav, Row, Overlay, Popover, Offcanvas } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../App.css";
-import ThemeButton from "../../components/theme-button/ThemeButton";
 import { ThemeContext, ThemesProperties } from "../../contexts/ThemeContext.js";
-import { BsPersonCircle } from "react-icons/bs";
 import {
   IsString,
   IsStringNotUndefinedOrEmpty,
 } from "../../utilities/Validator";
-import Auth from "../../logic/Auth";
+import CustomNavItem from "./CustomNavItem";
+import CustomUserProfile from "./CustomeUserProfile";
+import CustomNavBrand from "./CustomNavBrand";
 
 function CustomNavbar(props) {
   const navigate = useNavigate();
@@ -98,120 +98,6 @@ function CustomNavbar(props) {
         )
       }
     </ThemeContext.Consumer>
-  );
-}
-
-export function CustomNavItem(props) {
-  const navLinkRef = useRef(null);
-
-  useEffect(() => {
-    console.log(navLinkRef.isActive);
-  }, [navLinkRef.isActive]);
-
-  return (
-    <>
-      <NavLink
-        className="p-2 nav-item nav-link"
-        exact="true"
-        to={props.to}
-        replace="true"
-        ref={navLinkRef}
-      >
-        {props.children}
-      </NavLink>
-    </>
-  );
-}
-
-export function CustomUserProfile(props) {
-  const navigate = useNavigate();
-  const [showProfile, setShowProfile] = useState(false);
-  const profileButtonRef = useRef(null);
-
-  const handleShowProflileClick = (event) => {
-    setShowProfile(!showProfile);
-  };
-
-  const handleLogOut = (e) => {
-    Auth.Logout();
-    navigate("/login");
-  };
-
-  return (
-    <>
-      <button
-        className={"btn-" + ThemesProperties[props.theme].variant}
-        style={{ border: "1px solid transparent", margin: "1px" }}
-        onClick={handleShowProflileClick}
-        ref={profileButtonRef}
-      >
-        <BsPersonCircle className="m-0 p-0" size="1.5em" />
-      </button>
-      <Overlay
-        show={showProfile}
-        target={profileButtonRef}
-        placement="bottom"
-        container={props.container}
-        rootClose="true"
-        onHide={handleShowProflileClick}
-      >
-        <Popover
-          id="profile-popover"
-          className={"p-0 " + ThemesProperties[props.theme].bgClassName}
-        >
-          <Popover.Body>
-            <Row className="p-0 mb-1 text-align-left">
-              <button
-                className={
-                  "m-0 p-0 btn-" + ThemesProperties[props.theme].variant
-                }
-                style={{
-                  border: "none",
-                  boxShadow: "none",
-                }}
-              >
-                Bo Chansothea
-              </button>
-            </Row>
-            <Row>
-              <ThemeButton className="m-0 mt-1 p-0 sm-order-0" />
-              <div
-                className={
-                  "btn btn-sm btn-" + ThemesProperties[props.theme].variant
-                }
-                style={{
-                  textDecoration: "none",
-                  border: "none",
-                  boxShadow: "none",
-                }}
-                onClick={handleLogOut}
-              >
-                Logout
-              </div>
-            </Row>
-          </Popover.Body>
-        </Popover>
-      </Overlay>
-    </>
-  );
-}
-
-export function CustomNavBrand(props) {
-  return (
-    <div
-      className={
-        "navbar-brand m-0 p-1 btn bt- " +
-        ThemesProperties[props.theme].textClassName
-      }
-      style={{
-        textDecoration: "none",
-        border: "none",
-        boxShadow: "none",
-      }}
-      onClick={() => props.onClick("/dashboard")}
-    >
-      Note Here
-    </div>
   );
 }
 
